@@ -21,6 +21,9 @@ services:
 
   ui:
     image: "deepset/demo-explore-the-world"
+    build:
+      context: .
+      dockerfile: ./Dockerfile
     ports:
       - 8501:8501
     restart: on-failure

@@ -22,3 +22,22 @@ cases: some of these applications are available online and all of them can run l
 | ------------------------------------------- | ------------------ | ---------------------------------------- |
 | [Explore the world](./explore_the_world/)   | Question Answering | [Link](https://haystack-demo.deepset.ai) |
 | [Air-gapped rest_api](./airgapped-rest_api) | Deployment         | :x:                                      |
+
+
+
+## How to use
+
+```shell
+$ cd explore_the_world
+$ docker-compose up
+```
+
+Then navigate to http://localhost:8501/
+
+**Note**:
+
+- Haystack REST API Doc: http://localhost:8000/docs
+- More information see [explore_the_world](./explore_the_world/README.md)
+
+
+
