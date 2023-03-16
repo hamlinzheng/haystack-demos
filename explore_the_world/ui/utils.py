@@ -106,12 +106,24 @@ def send_feedback(query, answer_obj, is_correct_answer, is_correct_document, doc
         raise ValueError(f"An error was returned [code {response_raw.status_code}]: {response_raw.json()}")
 
 
-def upload_doc(file):
+# def upload_doc(file):
+#     url = f"{API_ENDPOINT}/{DOC_UPLOAD}"
+#     files = [("files", file)]
+#     response = requests.post(url, files=files).json()
+#     return response
+def upload_doc(file, meta_form=None):
+    import json
     url = f"{API_ENDPOINT}/{DOC_UPLOAD}"
     files = [("files", file)]
-    response = requests.post(url, files=files).json()
-    return response
+    data = None
 
+    if meta_form is not None:
+        # Convert the meta_form dictionary to a JSON string
+        meta_json = json.dumps(meta_form)
+        data = {"meta": meta_json}
+
+    response = requests.post(url, files=files, data=data).json()
+    return response
 
 def get_backlink(result) -> Tuple[Optional[str], Optional[str]]:
     if result.get("document", None):

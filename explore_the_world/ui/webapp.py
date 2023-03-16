@@ -9,7 +9,7 @@ import streamlit as st
 from annotated_text import annotation
 from markdown import markdown
 
-from ui.utils import haystack_is_ready, query, send_feedback, upload_doc, haystack_version, get_backlink
+from utils import haystack_is_ready, query, send_feedback, upload_doc, haystack_version, get_backlink
 
 
 # Adjust to a question that you would like users to see in the search bar when they load the UI:
@@ -33,6 +33,9 @@ def set_state_if_absent(key, value):
 
 
 def main():
+    user_id = 'default_user'
+    user_id_2 = 'another_user'
+    user_project = 'default_project'
 
     st.set_page_config(page_title="Haystack Demo", page_icon="https://haystack.deepset.ai/img/HaystackIcon.png")
 
@@ -94,7 +97,7 @@ Ask any question on this topic and see if Haystack can find the correct answer t
         for data_file in data_files:
             # Upload file
             if data_file:
-                raw_json = upload_doc(data_file)
+                raw_json = upload_doc(data_file,meta_form={'user_id': user_id, 'project': user_project})
                 st.sidebar.write(str(data_file.name) + " &nbsp;&nbsp; ✅ ")
                 if debug:
                     st.subheader("REST API JSON response")
@@ -192,6 +195,7 @@ Ask any question on this topic and see if Haystack can find the correct answer t
             run_query = False
             reset_results()
 
+    filters = {'user_id': [user_id]}
     # Get results for query
     if run_query and question:
         reset_results()
@@ -204,7 +208,7 @@ Ask any question on this topic and see if Haystack can find the correct answer t
         ):
             try:
                 st.session_state.results, st.session_state.raw_json = query(
-                    question, top_k_reader=top_k_reader, top_k_retriever=top_k_retriever
+                    question, filters=filters, top_k_reader=top_k_reader, top_k_retriever=top_k_retriever
                 )
             except JSONDecodeError as je:
                 st.error("👓 &nbsp;&nbsp; An error occurred reading the results. Is the document store working?")
