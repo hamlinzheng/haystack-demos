@@ -48,7 +48,8 @@ def query(query, filters={}, top_k_reader=5, top_k_retriever=5) -> Tuple[List[Di
     """
 
     url = f"{API_ENDPOINT}/{DOC_REQUEST}"
-    params = {"filters": filters, "Retriever": {"top_k": top_k_retriever}, "Reader": {"top_k": top_k_reader}}
+    # params = {"filters": filters, "DenseRetriever": {"top_k": 5},"SparseRetriever": {"top_k": 2}, "Reader": {"top_k": top_k_reader}}
+    params = {"filters": filters}
     req = {"query": query, "params": params}
     response_raw = requests.post(url, json=req)
 

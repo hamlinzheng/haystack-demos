@@ -33,8 +33,8 @@ def set_state_if_absent(key, value):
 
 
 def main():
-    user_id = 'default_user'
-    user_id_2 = 'another_user'
+    # user_id = 'default_user'
+    user_id = 'aisear/mining'
     user_project = 'default_project'
 
     st.set_page_config(page_title="Haystack Demo", page_icon="https://haystack.deepset.ai/img/HaystackIcon.png")
